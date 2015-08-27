@@ -1,0 +1,14 @@
+<tr class="gray-box">
+  <td>
+    <%= link_to serie.name, contact_path(serie.contact, serie_id: serie.id) %>
+    <br />
+    <small>
+      commencée le <%= l serie.start_date %>
+    </small>
+  </td>
+  <td style="text-align: right;">
+    <a href="<%= edit_serie_path(serie) %>" class="btn btn-mini"><i class="icon-pencil" ></i></a>
+    <%= display_delete_link(serie.id) %>
+    <br />
+    <br />
+</tr>

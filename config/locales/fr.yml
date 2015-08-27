@@ -1,0 +1,368 @@
+# French translations for Ruby on Rails
+# by Christian Lescuyer (christian@flyingcoders.com)
+# contributors:
+#  - Sebastien Grosjean - ZenCocoon.com
+#  - Bruno Michel - http://github.com/nono
+#  - Tsutomu Kuroda - http://github.com/kuroda (t-kuroda@oiax.jp)
+# Emended by Benjamin des Gachons and Patrick Chew : <http://www.fitima.org/docs/fiche.pdf>
+
+fr:
+  date:
+    formats:
+      default: "%d.%m.%Y"
+      short: "%e %b"
+      long: "%e %B %Y"
+    day_names:
+      - dimanche
+      - lundi
+      - mardi
+      - mercredi
+      - jeudi
+      - vendredi
+      - samedi
+    abbr_day_names:
+      - dim
+      - lun
+      - mar
+      - mer
+      - jeu
+      - ven
+      - sam
+    month_names:
+      - ~
+      - janvier
+      - février
+      - mars
+      - avril
+      - mai
+      - juin
+      - juillet
+      - août
+      - septembre
+      - octobre
+      - novembre
+      - décembre
+    abbr_month_names:
+      - ~
+      - jan.
+      - fév.
+      - mar.
+      - avr.
+      - mai
+      - juin
+      - juil.
+      - août
+      - sept.
+      - oct.
+      - nov.
+      - déc.
+    order:
+      - :day
+      - :month
+      - :year
+
+  time:
+    formats:
+      default: "%d %B %Y %H:%M:%S"
+      short: "%d %b %H:%M"
+      long: "%A %d %B %Y %H:%M"
+    am: 'am'
+    pm: 'pm'
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "une demi-minute"
+      less_than_x_seconds:
+        zero:  "moins d'une seconde"
+        one:   "moins d'une seconde"
+        other: "moins de %{count} secondes"
+      x_seconds:
+        one:   "1 seconde"
+        other: "%{count} secondes"
+      less_than_x_minutes:
+        zero:  "moins d'une minute"
+        one:   "moins d'une minute"
+        other: "moins de %{count} minutes"
+      x_minutes:
+        one:   "1 minute"
+        other: "%{count} minutes"
+      about_x_hours:
+        one:   "environ une heure"
+        other: "environ %{count} heures"
+      x_days:
+        one:   "1 jour"
+        other: "%{count} jours"
+      about_x_months:
+        one:   "environ un mois"
+        other: "environ %{count} mois"
+      x_months:
+        one:   "1 mois"
+        other: "%{count} mois"
+      about_x_years:
+        one:   "environ un an"
+        other: "environ %{count} ans"
+      over_x_years:
+        one:   "plus d'un an"
+        other: "plus de %{count} ans"
+      almost_x_years:
+        one:   "presqu'un an"
+        other: "presque %{count} ans"
+    prompts:
+      year:   "Année"
+      month:  "Mois"
+      day:    "Jour"
+      hour:   "Heure"
+      minute: "Minute"
+      second: "Seconde"
+
+  number:
+    format:
+      separator: ","
+      delimiter: " "
+      precision: 3
+      significant: false
+      strip_insignificant_zeros: false
+    currency:
+      format:
+        format: "%n %u"
+        unit: "€"
+        separator: ","
+        delimiter: " "
+        precision: 2
+        significant: false
+        strip_insignificant_zeros: false
+    percentage:
+      format:
+        delimiter: ""
+    precision:
+      format:
+        delimiter: ""
+    human:
+      format:
+        delimiter: ""
+        precision: 2
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one:   "octet"
+            other: "octets"
+          kb: "ko"
+          mb: "Mo"
+          gb: "Go"
+          tb: "To"
+      decimal_units:
+        format: "%n %u"
+        units:
+          unit: ""
+          thousand: "millier"
+          million: "million"
+          billion: "milliard"
+          trillion: "billion"
+          quadrillion: "million de milliards"
+
+  support:
+    array:
+      words_connector: ", "
+      two_words_connector: " et "
+      last_word_connector: " et "
+
+  helpers:
+    select:
+      prompt: "Veuillez sélectionner"
+    submit:
+      create: "Créer un(e) %{model}"
+      update: "Modifier ce %{model}"
+      submit: "Enregistrer ce(tte) %{model}"
+    links:
+      cancel                                      : Annuler
+      edit                                        : Editer
+      delete                                      : Supprimer
+      destroy                                     : Supprimer
+      confirm                                     : Etes-vous sûr?
+    titles:
+      new                                         : Nouveau
+
+  errors: &errors
+    format: "%{attribute} %{message}"
+    messages: &errors_messages
+      inclusion: "n'est pas inclus(e) dans la liste"
+      exclusion: "n'est pas disponible"
+      invalid: "n'est pas valide"
+      confirmation: "ne concorde pas avec la confirmation"
+      accepted: "doit être accepté(e)"
+      empty: "doit être rempli(e)"
+      blank: "doit être rempli(e)"
+      too_long:
+        one: "est trop long (pas plus d'un caractère)"
+        other: "est trop long (pas plus de %{count} caractères)"
+      too_short:
+        one: "est trop court (au moins un caractère)"
+        other: "est trop court (au moins %{count} caractères)"
+      wrong_length:
+        one: "ne fait pas la bonne longueur (doit comporter un seul caractère)"
+        other: "ne fait pas la bonne longueur (doit comporter %{count} caractères)"
+      not_a_number: "n'est pas un nombre"
+      not_an_integer: "doit être un nombre entier"
+      greater_than: "doit être supérieur à %{count}"
+      greater_than_or_equal_to: "doit être supérieur ou égal à %{count}"
+      equal_to: "doit être égal à %{count}"
+      less_than: "doit être inférieur à %{count}"
+      less_than_or_equal_to: "doit être inférieur ou égal à %{count}"
+      odd: "doit être impair"
+      even: "doit être pair"
+      taken: "n'est pas disponible"
+      record_invalid: "La validation a échoué : %{errors}"
+
+    template: &errors_template
+      header:
+        one:   "Impossible d'enregistrer ce(tte) %{model} : 1 erreur"
+        other: "Impossible d'enregistrer ce(tte) %{model} : %{count} erreurs"
+      body: "Veuillez vérifier les champs suivants : "
+
+  activemodel:
+    errors:
+      <<: *errors
+  activerecord:
+    errors:
+      <<: *errors
+    attributes:
+      bill:
+        reference_number                          : Référence facture
+        status                                    : Statut de la facture
+        notes                                     : Commentaires
+        sent_on                                   : Facture envoyée le
+        paid_on                                   : Facture payée le
+        recall_sent_on                            : Rappel envoyé le
+      contact:
+        title                                     : Titre
+        firstname                                 : Prénom
+        lastname                                  : Nom
+        billing_title                             : Titre fenêtre enveloppe
+        billing_firstname                         : Prénom enveloppe
+        billing_lastname                          : Nom enveloppe
+        billing_street                            : Rue enveloppe
+        billing_zipcode                           : Code postal enveloppe
+        billing_city                              : Ville enveloppe
+        billing_country                           : Pays enveloppe
+        birthdate                                 : Age ou Anniversaire
+        languages                                 : Langue(s)
+        nationalities                             : Nationalité(s)
+        street                                    : Rue
+        zipcode                                   : Code postal
+        city                                      : Ville
+        phone_pro                                 : Téléphone pro
+        phone_perso                               : Téléphone perso
+        phone_mobile                              : Natel 1
+        phone_mobile_2                            : Natel 2
+        civil_status                              : Etat civil
+        is_archived                               : Archiver Patient?
+        referent                                  : Référent(e)
+        country                                   : Pays
+        bureau                                    : Cabinet
+        rate_30                                   : 30min
+        rate_45                                   : 45min
+        rate_60                                   : 60min
+        is_cotherapy                              : En co-thérapie?
+        rate_cotherapy                            : Tarif co-thérapie
+        bill_every_x_sessions                     : Toutes les X séances
+      serie:
+        start_date                                : Date initiale
+        end_date                                  : Date de fin
+        name                                      : Nom
+      session:
+        start_date                                : Date de séance
+        end_date                                  : Date de fin
+        duration                                  : Durée
+        observations                              : Observations
+  bills:
+    statuses:
+      draft                                       : Brouillon
+      sent                                        : Envoyée
+      paid                                        : Payée
+      unpaid                                      : Non-payée
+      first_recall                                : Premier rappel
+      second_recall                               : Second rappel
+      last_recall                                 : Dernier rappel
+      delegated                                   : Déléguée
+    successfully_created                          : Facture créée avec succès
+    successfully_updated                          : Facture modifiée avec succès
+    successfully_deleted                          : Facture supprimée avec succès
+    edit:
+      title                                       : Modifier une Facture
+    form:
+      choose_sessions                             : Choisissez des séances
+      bill_infos                                  : Informations facture
+      submit                                      : Créer la facture
+      modify                                      : Sauver la facture
+    new:
+      title                                       : Nouvelle Facture
+    show:
+      title                                       : Facture
+      bill_infos                                  : Informations facture
+      sessions                                    : Séances
+      back_to_contact                             : Retourner à la fiche du Patient
+  contacts:
+    successfully_created                          : Le patient a été créé avec succès
+    successfully_updated                          : Le patient a été modifié avec succès
+    successfully_deleted                          : Le patient a été supprimé avec succès
+    index:
+      create_contact                              : Créer un patient
+      are_you_sure                                : Etes-vous sûr de vouloir supprimer ce patient?
+    new:
+      title                                       : Nouveau patient
+    edit:
+      title                                       : Editer patient
+    form:
+      basic_infos                                 : Fiche du patient
+      contact_infos                               : Fiche Contact (2/2)
+      bureau_infos                                : Infos internes
+      bills_infos                                 : Facturation
+      rates                                       : Tarifs
+      submit                                      : Sauver le patient
+    show:
+      contact_infos                               : Informations sur le patient
+      edit_contact                                : Modifier patient
+      sessions_for                                : Séances pour
+      add_session                                 : Entrer une séance
+      add_bill                                    : Faire une facture
+      add_serie                                   : Ajouter une série
+      all_series                                  : Toutes les séries
+      bills_for_contact                           : Factures du patient
+  series:
+    successfully_created                          : La série a été créée avec succès
+    successfully_updated                          : La série a été modifiée avec succès
+    successfully_deleted                          : La série a été supprimée avec succès
+    cannot_delete_if_not_empty                    : Erreur! cette série ne peut-être supprimée car elle contient des séances
+    are_you_sure                                  : Etes-vous sûr de vouloir supprimer cette série?
+    new:
+      title                                       : Nouvelle série
+    edit:
+      title                                       : Modifier une série
+    form:
+      submit                                      : Sauver la série
+  sessions:
+    successfully_created                          : La séance a été créée avec succès
+    successfully_updated                          : La séance a été modifiée avec succès
+    successfully_deleted                          : La séance a été supprimée avec succès
+    new:
+      title                                       : Nouvelle séance
+    edit:
+      title                                       : Modifier la séance
+    form:
+      submit                                      : Créer la séance
+      edit                                        : Sauver la séance
+    session:
+      are_you_sure                                : Etes-vous sûr de vouloir supprimer cette séance?
+
+  devise:
+    sessions:
+      user:
+        signed_in                                 : Authentifié avec succès. Bienvenue sur IFP.
+    failure:
+      user:
+        unauthenticated                           : Veuillez vous authentifier.
+        invalid                                   : Email et/ou mot de passe invalide(s).
+        not_found_in_database                     : Utilisateur inconnu.

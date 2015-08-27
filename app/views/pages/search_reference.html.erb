@@ -1,0 +1,40 @@
+<table id="references_found" class="table table-hover">
+  <thead>
+    <tr>
+      <th>Numéro de Facture</th>
+      <th>Numéro de référence</th>
+      <th>Patient</th>
+      <th>Statut de la facture</th>
+    </tr>
+  </thead>
+  <% @bills.each do |bill| %>
+  <% 
+    contact = bill.contact
+    if contact.present?
+      contact_title = contact.title.present? ? contact.title : ""
+      contact_firstname = contact.firstname.present? ? contact.firstname : ""
+      contact_lastname = contact.lastname.present? ? contact.lastname : ""
+   %>
+    <tr id="bill_<%= bill.id %>">
+      <td><%= bill.id %></td>
+      <td><%= bill.reference_number %></td>
+      <td><%= "#{contact_title} #{contact_firstname} #{contact_lastname}" %></td>
+      <td><b><%= t("bills.statuses.#{bill.status}") %></b></td>
+    </tr>
+  <% end %>
+  <% end %>
+</table>
+
+<script type="text/javascript">
+  <% @bills.each do |bill| %>
+    <% if bill.contact.present? %>
+      $('#bill_<%= bill.id %>').click(function() {
+        window.location.href = "<%= edit_contact_bill_path(bill.contact.id, bill.id) %>"
+      });
+
+      $('#bill_<%= bill.id %>').hover(function(){
+        $('#bill_<%= bill.id %>').css( 'cursor', 'pointer' );
+      });
+    <% end %>
+  <% end %>
+</script>

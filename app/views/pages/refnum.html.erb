@@ -1,0 +1,19 @@
+<table>
+  <thead>
+    <th>Bill id</th>
+    <th>Reference number</th>
+    <th>Bill notes</th>
+  </thead>
+
+  <h1 align="center">Nombre de reference_number malformés: <%= @bills.count %></h1>
+
+  <tbody>
+    <% @bills.each do |b| %>
+      <tr>
+        <td align="center"><%= b.id %></td>
+        <td align="center"><%= b.reference_number %></td>
+        <td align="center"><%= b.notes %></td>
+      </tr>
+    <% end %>
+  <tbody>
+</table>

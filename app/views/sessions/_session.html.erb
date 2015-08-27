@@ -1,0 +1,25 @@
+<tr>
+  <td style="border-radius: 15px 0px 0px 15px"><%= session.id %></td>
+  <td>
+    <% if session.in_bill? %>
+      <strong><%= "Facture ##{session.bill.id}" if session.in_bill? %></strong>
+      <i class=" icon-ok-sign"></i>
+    <% end %>
+  </td>
+  <td>
+    <small>
+    <%= "#{l session.start_date.to_date if session.start_date.present?} - #{session.observations}" %>
+    <br />
+    <strong><%= "#{session.duration} - #{number_with_precision(session.price, precision: 2, separator: '.')} CHF" %></strong>
+      <% if @is_all %>
+        dans <strong><%= "#{session.serie.name}" %></strong>
+      <% end %>
+    </small>
+  </td>
+  <% if @is_editable %>
+  <td style="text-align: right">
+    <a href="<%= edit_serie_session_path(session.serie_id, session.id) %>" class="btn btn-mini"><i class="icon-pencil"></i></a>
+    <a href="<%= serie_session_path(session.serie_id, session.id) %>" class="btn btn-mini btn-danger" data-confirm="<%= t('.are_you_sure') %>" data-method="delete" rel="nofollow"><i class="icon-trash"></i></a>
+  </td>
+  <% end %>
+</tr>

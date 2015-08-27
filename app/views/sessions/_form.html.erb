@@ -1,0 +1,40 @@
+<div id="session">
+  <%= form_for @session, url: @path, html: { class: 'form-horizontal session_submit' } do |f| %>
+
+    <%= f.hidden_field :observations, { class: "observations" } %>
+    <%= f.hidden_field :duration, { class: "duration" } %>
+    <%= f.hidden_field :serie_id %>
+
+    <div class="gray-box">
+      <div class="control-group">
+        <%= f.label :start_date, :class => 'control-label' %>
+        <div class="controls">
+           <%= f.text_field :start_date, class: "datepicker", value: default_start_date %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :duration, :class => 'control-label' %>
+        <div class="controls duration_div">
+          <%= select_tag :select_duration, options_for_select(@durations_prices, selected: default_duration_for_select), {class: "select_duration"} %>
+          <%= text_field_tag :custom_duration, set_custom_duration, {class: 'custom_duration', placeholder: 'Entrez une durée', disabled: true } %>
+          <%= f.number_field :price, value: default_price, placeholder: 'Entrez un prix', class: 'price' %>CHF
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :observations, :class => 'control-label' %>
+        <div class="controls observations_div">
+          <%= select_tag :select_observations, options_for_select(@observations, selected: default_observations_for_select), {class: "select_observations"} %>
+          <%= text_field_tag :custom_observations, set_custom_observations, {class: 'custom_observations', placeholder: 'Entrez une observation', disabled: true } %>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <%= f.submit params[:action] == 'edit' ? t('.edit') : t('.submit'), :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  contact_path(@contact.id), :class => 'btn' %>
+    </div>
+  <% end %>
+</div>

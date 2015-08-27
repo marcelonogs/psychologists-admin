@@ -1,0 +1,115 @@
+<%- model_class = Contact -%>
+
+<div id="test2">
+
+  <div class="page-header">
+
+    <%= form_tag(contacts_path, method: :get, class: "navbar-search pull-right") do %>
+      <input id="search" type="text" class="search-query" placeholder="Rechercher un patient">
+      <%= hidden_field_tag :filter, nil, id: "hidden_id" %>
+    <% end %>
+
+    <br />
+    <br />
+    <%= form_tag(search_reference_path, method: :get, class: "navbar-search pull-right") do %>
+      <input id="search2" type="text" class="search-query" placeholder="Rechercher une référence">
+      <%= hidden_field_tag :filter, nil, id: "hidden_id2" %>
+    <% end %>
+
+    <% if @is_filter_present %>
+      <%= link_to "Enlever filtre \"#{@filter}\"", contacts_path %>
+    <br />
+    <% else %>
+      <%= select_tag "bureau_select", options_for_select(
+      [
+        ["Tous les contacts", "all"],
+        ["Genève", "geneva"],
+        ["Nyon", "nyon"],
+        ["Archivés", "archived"]
+      ], @bureau_selected) %>
+    <% end %>
+    <%= @nb_contacts %> patients trouvé(s).
+  </div>
+
+  <script type="text/javascript">
+    $(document).keypress(function(e) {
+      if(e.which == 13) {
+          $('#hidden_id').val($('#search').val());
+          $('#hidden_id2').val($('#search2').val());
+      }
+    });
+  </script>
+
+  <table align="center">
+    <tr>
+      <td style="background-color: <%= colors_for_bureau[:geneva] %>;" width="75px" height="30px" align="center">Genève</td>
+      <td style="background-color: <%= colors_for_bureau[:nyon] %>;" width="75px" height="30px" align="center">Nyon</td>
+      <td style="background-color: <%= colors_for_bureau[:archived] %>;" width="75px" height="30px" align="center">Archivés</td>
+    </tr>
+  </table>
+  <br />
+
+  <table id="contacts" class="table table-hover">
+    <thead>
+      <tr>
+        <!-- <th><%= model_class.human_attribute_name(:id) %></th> -->
+        <th><%= model_class.human_attribute_name(:title) %></th>
+        <th><%= model_class.human_attribute_name(:firstname) %></th>
+        <th><%= model_class.human_attribute_name(:lastname) %></th>
+        <th><%= model_class.human_attribute_name(:birthdate) %></th>
+        <th><%= model_class.human_attribute_name(:street) %></th>
+        <th><%= model_class.human_attribute_name(:zipcode) %></th>
+        <th><%= model_class.human_attribute_name(:city) %></th>
+        <% if @bureau_selected == "all" %>
+          <th><%= "Cabinet" %></th>
+        <% end %>
+        <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @contacts.each do |contact| %>
+        <tr id="contact_<%= contact.id %>" style="background-color: <%= contact.archived? ? colors_for_bureau[:archived] : colors_for_bureau[contact.bureau.to_sym] %>;">
+          <td><%= contact.title %></td>
+          <td><%= contact.firstname %></td>
+          <td><%= contact.lastname %></td>
+          <td><%= contact.birthdate %></td>
+          <td><%= contact.street %></td>
+          <td><%= contact.zipcode %></td>
+          <td><%= contact.city %></td>
+          <% if @bureau_selected == "all" %>
+            <td><%= contact.bureau %></td>
+          <% end %>
+          <td>
+              <a href="<%= edit_contact_path(contact) %>" class="btn btn-mini"><i class="icon-pencil"></i></a>
+              <a href="<%= contact_path(contact) %>" class="btn btn-mini btn-danger" data-confirm="<%= t '.are_you_sure' %>" data-method="delete" rel="nofollow"><i class="icon-trash"></i></a>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <a class="btn btn-primary" href="<%= new_contact_path %>" ><i class="icon-user icon-white"></i> <%= t '.create_contact' %></a>
+  <br />
+  <br />
+</div>
+
+<%= paginate @contacts %>
+
+<script type="text/javascript">
+
+  $('#bureau_select').change(function(){
+    window.location.href = '<%= contacts_path %>' + "?bureau=" + $( this ).val();
+  });
+
+  $('#search').focus();
+
+  <% @contacts.each do |c| %>
+    $('#contact_<%= c.id %>').click(function(){
+      window.location.href = "<%= contact_url(c) %>"
+    });
+
+    $('#contact_<%= c.id %>').hover(function(){
+      $('#contact_<%= c.id %>').css( 'cursor', 'pointer' );
+    });
+  <% end %>
+</script>

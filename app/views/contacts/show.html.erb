@@ -1,0 +1,155 @@
+<div id="contact_main_container">
+  <div id="left_container">
+    <h4><%= t '.contact_infos' %></h4>
+    <a href="<%= edit_contact_path(@contact) %>" class="btn btn-mini btn-primary"><i class="icon-pencil"></i> <%= t '.edit_contact' %></a>
+    <br />
+    <br />
+    <p>
+      <b><%= t 'activerecord.attributes.contact.title' %>:</b>
+      <%= @contact.title %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.firstname' %>:</b>
+      <%= @contact.firstname %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.lastname' %>:</b>
+      <%= @contact.lastname %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.billing_title' %>:</b>
+      <%= @contact.billing_title %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.billing_firstname' %>:</b>
+      <%= @contact.billing_firstname %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.billing_lastname' %>:</b>
+      <%= @contact.billing_lastname %>
+    </p>
+
+    <p>
+      <b><%= 'Adresse enveloppe' %>:</b>
+      <%= "#{@contact.billing_street}, #{@contact.billing_zipcode} #{@contact.billing_city}, #{@contact.billing_country}" %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.birthdate' %>:</b>
+      <%= display_date_or_string @contact.birthdate %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.nationalities' %>:</b>
+      <%= @contact.nationalities.map(&:name).join(", ") %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.languages' %>:</b>
+      <%= @contact.languages.map(&:name).join(", ") %>
+    </p>
+
+    <p>
+      <b><%= 'Adresse' %>:</b>
+      <%= "#{@contact.street}, #{@contact.zipcode} #{@contact.city}, #{@contact.country}" %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.phone_mobile' %>:</b>
+      <%= @contact.phone_mobile %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.civil_status' %>:</b>
+      <%= @contact.civil_status %>
+    </p>
+
+    <% if @contact.is_archived %>
+      <p>
+        <b>Statut:</b>
+        Archivé
+      </p>
+    <% end %>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.referent' %>:</b>
+      <%= @contact.referent %>
+    </p>
+
+    <p>
+      <b><%= t 'activerecord.attributes.contact.bureau' %>:</b>
+      <%= @contact.bureau %>
+    </p>
+  </div>
+
+  <div id="middle_container">
+    <h4 align="center"><%= t '.sessions_for' %> <div class="btn-group">
+      <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
+        <%= @serie_name %>
+        <span class="caret"></span>
+      </a>
+      <% if @serie_name != "All series" %>
+           ...<a href="<%= edit_serie_path @serie_id %>" class="btn btn-mini"><i class="icon-pencil"> <%= t 'helpers.links.edit' %></i></a>
+        <% end %>
+      <ul class="dropdown-menu">
+        <!-- dropdown menu links -->
+        <table class="table table-hover">
+          <%= render @series %>
+          <% if @display_all_series_link %>
+            <tr class="gray-box">
+              <td>
+                <%= link_to t('.all_series'), contact_path(@contact.id, serie_id: "all") %>
+              </td>
+              <td></td>
+            </tr>
+          <% end %>
+        </table>
+        <a href="<%= new_serie_path(contact_id: @contact.id) %>" class="btn btn-mini btn-primary"><i class="icon-plus"></i> <%= t '.add_serie' %></a>
+      </ul>
+    </div></h4>
+    <% if @serie_id.present? %>
+    <div align="center">
+      <a id="add_serie" href="<%= @new_session_path %>" class="btn btn-mini btn-primary"><i class="icon-plus"></i> <%= t '.add_session' %></a></div>
+      <br />
+      <br />
+    <% end %>
+    <table class="table table-hover">
+      <%= render @sessions %>
+    </table>
+    <%= paginate @sessions %>
+  </div>
+
+  <div id="right_container">
+    <h4 align="center"><%= t '.bills_for_contact' %></h4>
+    <div align="center">
+      <a href="<%= new_contact_bill_path(@contact.id) %>" class="btn btn-mini btn-primary"><i class="icon-plus"></i> <%= t '.add_bill' %></a></div>
+      <br />
+      <br />
+    <table class="table table-hover">
+      <%= render @bills %>
+    </table>
+    <%= paginate @bills, :param_name => :page_bills %>
+  </div>
+
+  <br style="clear: left;" />
+</div>
+
+<script type="text/javascript">
+
+  $('#add_serie').focus();
+
+  <% @bills.each do |b| %>
+    $('#bill_<%= b.id %>').click(function(){
+      window.location.href = "<%= contact_bill_url(b.contact_id, b) %>"
+    });
+
+    $('#bill_<%= b.id %>').hover(function(){
+      $('#bill_<%= b.id %>').css( 'cursor', 'pointer' );
+    });
+  <% end %>
+</script>

@@ -1,0 +1,267 @@
+<%= form_for @contact, :html => { :class => 'form-horizontal' } do |f| %>
+<div id="new_contact_main_container">
+  <div id="left_container">
+    <div class="gray-box">
+      <b><%= t '.basic_infos' %><b>
+      <div class="control-group">
+        <%= f.label :title, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.select :title, @titles, :class => 'text_field' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :lastname, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :lastname, :class => 'text_field' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :firstname, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :firstname, :class => 'text_field' %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= label_tag 'Changer entête enveloppe?' %>
+        <div class="controls">
+          <%= f.check_box :is_billing_contact %>
+        </div>
+      </div>
+
+      <div id="billing_contact_infos">
+        <div class="control-group">
+          <%= f.label :billing_title, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.select :billing_title, @billing_titles, {class: 'text_field' } , { disabled: true } %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :billing_lastname, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :billing_lastname, disabled: true, :class => 'text_field' %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :billing_firstname, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :billing_firstname, disabled: true, :class => 'text_field' %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :billing_street, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :billing_street, disabled: true, :class => 'text_field' %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :billing_city, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :billing_city, disabled: true, :class => 'text_field' %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :billing_zipcode, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :billing_zipcode, disabled: true, :class => 'text_field' %>
+          </div>
+        </div>
+        <div class="control-group">
+          <%= f.label :billing_country, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :billing_country, disabled: true, :class => 'text_field' %>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :birthdate, t('activerecord.attributes.contact.birthdate'), :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :birthdate, :class => 'text_field', placeholder: "35 ou jj.mm.aaaa" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= label_tag :contact, t('activerecord.attributes.contact.nationalities'), :class => 'control-label' %>
+        <div class="controls" id="nationalities_div">
+          <%= text_field_tag "contact[nationalities][0]", @first_nationality, :class => 'text_field' %>
+          <a href="#"><i class="icon-plus" onClick="addNationalityField();"></i></a>
+
+          <% if @nationalities.present? %>
+            <% @nationalities.each do |n| %>
+              <div id="nationality_<%= n.id %>">
+                <input class="text_field" id="contact_nationalities_<%= n.id %>" name="contact[nationalities][<%= n.id %>]]" type="text" value="<%= n.name %>" />
+                <a href="#"> <i class="icon-minus" onClick="deleteNationalityField(<%= n.id %>);"></i></a>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= label_tag :contact, t('activerecord.attributes.contact.languages'), :class => 'control-label' %>
+        <div class="controls" id="languages_div">
+          <%= text_field_tag "contact[languages][0]", @first_language, :class => 'text_field' %>
+          <a href="#"><i class="icon-plus" onClick="addLanguageField();"></i></a>
+          <% if @languages.present? %>
+            <% @languages.each do |l| %>
+              <div id="language_<%= l.id %>">
+                <input class="text_field" id="contact_languages_<%= l.id %>" name="contact[languages][<%= l.id %>]]" type="text" value="<%= l.name %>" />
+                <a href="#"> <i class="icon-minus" onClick="deleteLanguageField(<%= l.id %>);"></i></a>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :civil_status, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.select :civil_status, options_for_select(@civil_statuses, @selected_civil_status), :class => 'text_field' %>
+        </div>
+      </div>
+    </div>
+    <div id="bureau_infos" class="gray-box">
+      <b><%= t '.bureau_infos' %><b>
+      <div class="control-group">
+        <%= f.label :bureau, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.select :bureau, @bureaus, :class => 'text_field' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :referent, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :referent, :class => 'text_field' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :is_archived, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.check_box :is_archived, :class => 'text_field' %>
+        </div>
+      </div>
+    </div>
+      <div class="gray-box">
+      <div style="padding-bottom: 30px;">Génération automatique de factures</div>
+      <div class="control-group">
+        <%= f.label :bill_every_x_sessions, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.number_field :bill_every_x_sessions, :class => 'text_field' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="right_container">
+    <div class="gray-box">
+    <b><%= t '.contact_infos' %><b>
+     <div class="control-group">
+        <%= f.label :street, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :street, :class => 'text_field' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :city, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :city, :class => 'text_field' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :zipcode, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :zipcode, :class => 'text_field' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :country, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :country, :class => 'text_field' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :phone_perso, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :phone_perso, :class => 'text_field', placeholder: "+41" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :phone_pro, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :phone_pro, :class => 'text_field', placeholder: "+41"  %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :phone_mobile, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :phone_mobile, :class => 'text_field', placeholder: "+41" %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :phone_mobile_2, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :phone_mobile_2, :class => 'text_field', placeholder: "+41" %>
+        </div>
+      </div>
+    </div>
+    <div id="rates" class="gray-box">
+      <b><%= t '.rates' %><b>
+      <div class="control-group">
+        <%= f.label :rate_30, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :rate_30, :class => 'text_field' %> CHF
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :rate_45, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :rate_45, :class => 'text_field' %> CHF
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :rate_60, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :rate_60, :class => 'text_field' %> CHF
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :is_cotherapy, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.check_box :is_cotherapy %>
+          <%= f.text_field :rate_cotherapy, disabled: true, :class => 'text_field' %> CHF
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+    <%= f.submit t('.submit'), :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                contacts_path, :class => 'btn' %>
+    </div>
+  </div>
+
+<% end %>
+
+<script type="text/javascript">
+
+  $("#contact_billing_title").prop('disabled', !$(this).is(':checked'));
+  $( "#contact_is_billing_contact" ).click( function() {
+    $("#contact_billing_title").prop('disabled', !$(this).is(':checked'));
+    $("#contact_billing_firstname").prop('disabled', !$(this).is(':checked'));
+    $("#contact_billing_lastname").prop('disabled', !$(this).is(':checked'));
+    $("#contact_billing_street").prop('disabled', !$(this).is(':checked'));
+    $("#contact_billing_zipcode").prop('disabled', !$(this).is(':checked'));
+    $("#contact_billing_city").prop('disabled', !$(this).is(':checked'));
+    $("#contact_billing_country").prop('disabled', !$(this).is(':checked'));
+  });
+
+  $('#contact_lastname').focus();
+
+  $("#contact_rate_cotherapy").prop('disabled', !$("#contact_is_cotherapy").is(':checked'));
+  $( "#contact_is_cotherapy" ).click( function() {
+    $("#contact_rate_cotherapy").prop('disabled', !$(this).is(':checked'));
+  });
+
+  $("#contact_bill_every_x_sessions").prop('disabled', $("#contact_is_bill_every_month").is(':checked'));
+  $( "#contact_is_bill_every_month" ).click( function() {
+    $("#contact_bill_every_x_sessions").prop('disabled', $(this).is(':checked'));
+  });
+</script>

@@ -1,0 +1,47 @@
+// Place all the styles related to the bills controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#new_bill_main_container {
+  width: 1200px;
+  height:550px;
+  /*background-color: blue;*/
+}
+
+#new_bill_main_container #left_container {
+  float: left;
+  width: 420px;
+  height:550px;
+}
+
+#new_bill_main_container #right_container {
+  float: left;
+  padding-left: 150px;
+  width: 600px;
+}
+
+#show_bill_main_container {
+  width: 1200px;
+}
+
+#show_bill_main_container #left_container {
+  margin-left: 25px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  float: left;
+  width: 400px;
+  padding-bottom: 30px;
+}
+
+#show_bill_main_container #right_container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  float: left;
+  margin-left: 25px;
+  padding: 20px;
+  width: 625px;
+}
+
+#bill_show_actions {
+  padding-top: 50px;
+}

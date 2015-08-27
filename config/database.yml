@@ -1,0 +1,15 @@
+development:
+  adapter: mysql2
+  database: psycho_admin_development
+  pool: 5
+  username: root
+  password: root
+  encoding:  utf8
+
+production:
+  adapter: mysql2
+  database: psycho_admin_production
+  pool: 5
+  username: deploy
+  password: NOT_YET_IN
+  encoding:  utf8

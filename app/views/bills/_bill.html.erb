@@ -1,0 +1,10 @@
+<tr id="bill_<%= bill.id %>">
+  <td>
+    Facture #<%= bill.id %> - <%= I18n.t("bills.statuses.#{bill.status}") %>
+    <br />
+    <small>Facture créée le <%= l bill.created_at %></small>
+  </td>
+  <td style="text-align: right;">
+    <a href="<%= edit_contact_bill_path(@contact.id, bill.id) %>" class="btn btn-mini"><i class="icon-pencil"></i></a>
+    <a href="<%= contact_bill_path(@contact.id, bill.id) %>" class="btn btn-mini btn-danger" data-confirm="Are you sure?" data-method="delete" rel="nofollow"><i class="icon-trash"></i></a>
+</tr>

@@ -1,0 +1,146 @@
+<div id="errors">
+  <% @bill.errors.each do |error, explanation| %>
+    <b style="color: red;"><%= "#{error}: #{explanation}" %></b>
+    <br />
+  <% end %>
+</div>
+
+<div id="new_bill_main_container">
+  <div id="left_container">
+    <%= form_for @bill, url: @path, :html => { :class => 'form-horizontal' } do |f| %>
+      <h3><%= t '.bill_infos' %></h3>
+
+      <% if @edit_mode %>
+        <div class="control-group">
+          <%= f.label :reference_number, :class => 'control-label' %>
+          <div class="controls">
+            <%= f.text_field :reference_number, :class => 'text_field' %>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="control-group">
+        <%= f.label :status, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.select :status, options_for_select(@statuses, selected: @selected_status), :class => 'text_field' %>
+        </div>
+      </div>
+      <div id="bill_sent" class="control-group">
+        <%= f.label :sent_on, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :sent_on, id: 'datepicker_sent', :class => 'text_field', value: @bill_sent_on %>
+        </div>
+      </div>
+      <div id="bill_paid" class="control-group">
+        <%= f.label :paid_on, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :paid_on, id: 'datepicker_paid', :class => 'text_field', value: @bill_paid_on %>
+        </div>
+      </div>
+      <div id="bill_recall" class="control-group">
+        <%= f.label :recall_sent_on, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :recall_sent_on, id: 'datepicker_recall', :class => 'text_field', value: @bill_recall_sent_on %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :notes, :class => 'control-label' %>
+        <div class="controls">
+          <%= f.text_area :notes, :class => 'text_field', rows: 6 %>
+        </div>
+      </div>
+
+      <%= hidden_field_tag :selected_rows, multiple: true %>
+
+      <div class="form-actions">
+        <%= f.submit t(@edit_mode ? '.modify' : '.submit'), id: "ohmy", :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                    @cancel_path, :class => 'btn' %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id="right_container">
+
+    <h3><%= t('.choose_sessions') %></h3>
+    <table id="sessions" class="table table-hover">
+      <thead>
+        <th>Id</th>
+        <th>is in Bill?</th>
+        <th>Séance</th>
+        <% if @is_editable %>
+          <th>Actions</th>
+        <% end %>
+      </thead>
+
+      <tbody>
+        <%= render @sessions %>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+
+<script type="text/javascript">
+
+  function display_correct_inputs(selected_status) {
+    $('#bill_sent').hide();
+    $('#bill_paid').hide();
+    $('#bill_recall').hide();
+
+    if (selected_status == 'sent') {
+      $('#bill_sent').show();
+    } else if (selected_status == 'paid') {
+      $('#bill_sent').show();
+      $('#bill_paid').show();
+    } else if (selected_status == 'first_recall' || selected_status == 'second_recall' || selected_status == 'last_recall') {
+      $('#bill_sent').show();
+      $('#bill_recall').show();
+    }
+  }
+
+  display_correct_inputs("<%= @selected_status %>");
+
+  $('#bill_status').change(function() {
+    display_correct_inputs($(this).val());
+  });
+
+  $('#bill_reference_number').focus();
+
+  $(document).ready( function () {
+
+    // Datepickers
+    $('#datepicker_sent').datepicker({format: "dd.mm.yyyy", language: "fr", autoclose: "true"});
+    $('#datepicker_paid').datepicker({format: "dd.mm.yyyy", language: "fr", autoclose: "true"});
+    $('#datepicker_recall').datepicker({format: "dd.mm.yyyy", language: "fr", autoclose: "true"});
+
+    $('#sessions').DataTable({
+      dom: 'T<"clear">lfrtip',
+      tableTools: {
+          "sRowSelect": "multi",
+          "aButtons": [ "select_all", "select_none" ]
+      }
+    });
+
+    // Select the first row in the table automatically
+    var oTT = TableTools.fnGetInstance( 'sessions' );
+    <% if @selected_sessions.present? %>
+      <% @selected_sessions.each do |s| %>
+        oTT.fnSelect($('#sessions tbody tr')[<%= @session_nos[s] %>]);
+      <% end %>
+    <% end %>
+  });
+
+  $('#ohmy').click(function(){
+
+      var oTT = TableTools.fnGetInstance( 'sessions' );
+      var aData = oTT.fnGetSelectedData();
+
+      var newArray = [];
+      for (i = 0; i < aData.length; i++)
+        newArray.push(aData[i][0]);
+
+      $('#selected_rows').val(newArray);
+  });
+</script>

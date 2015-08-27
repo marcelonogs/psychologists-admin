@@ -1,0 +1,83 @@
+<%- model_class = Bill -%>
+<div class="page-header">
+  <h1><%= "#{t('.title')} ##{@bill.id} - #{@bill.contact.firstname} #{@bill.contact.lastname}" %></h1>
+</div>
+
+<div id="show_bill_main_container">
+  <div id="left_container" class="gray-box">
+    <h3 align="center"><%= t('.bill_infos') %></h3>
+    <dl class="dl-horizontal">
+      <dt><strong><%= model_class.human_attribute_name(:reference_number) %>:</strong></dt>
+      <dd>
+        <%= @formatted_reference_number.present? ? @formatted_reference_number : "none" %>
+      </dd>
+
+      <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+      <dd>
+        <%= t("bills.statuses.#{@bill.status}") %>
+      </dd>
+
+      <% if @bill.sent? %>
+      <dt><strong><%= model_class.human_attribute_name(:sent_on) %>:</strong></dt>
+      <dd>
+        <%= @bill.sent_on.present? ? l(@bill.sent_on) : "-" %>
+      </dd>
+      <% end %>
+
+
+      <% if @bill.paid? %>
+        <dt><strong><%= model_class.human_attribute_name(:paid_on) %>:</strong></dt>
+        <dd>
+          <%= @bill.paid_on.present? ? l(@bill.paid_on) : "-" %>
+        </dd>
+      <% end %>
+
+      <% if @bill.recalled? %>
+      <dt><strong><%= model_class.human_attribute_name(:recall_sent_on) %>:</strong></dt>
+      <dd>
+        <%= @bill.recall_sent_on.present? ? l(@bill.recall_sent_on) : "-" %>
+      </dd>
+      <% end %>
+
+      <dt><strong><%= model_class.human_attribute_name(:notes) %>:</strong></dt>
+      <dd>
+        <%= @bill.notes %>
+      </dd>
+    </dl>
+  </div>
+
+  <div id="right_container" class="gray-box">
+    <h3 align="center"><%= t('.sessions') %></h3>
+    <table id="sessions" class="table table-hover">
+      <thead>
+        <th>Id</th>
+        <th></th>
+        <th>Séance</th>
+        <% if @is_editable %>
+          <th>Actions</th>
+        <% end %>
+      </thead>
+
+      <tbody>
+        <%= render @sessions %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  <div id="bill_show_actions" class="form-actions" align="center">
+    <%= link_to t('.back_to_contact'), contact_path(@contact_id), :class => 'btn' %>
+    <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_contact_bill_path(@contact_id, @bill), :class => 'btn btn-primary' %>
+    <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                contact_bill_path(@contact_id, @bill),
+                :method => 'delete',
+                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                :class => 'btn btn-danger' %>
+    <%= link_to "Imprimer Facture",
+                contact_bill_path(@contact_id, @bill, format: :pdf), id: "print", :class => 'btn btn-success', target: "_blank" %>
+  </div>
+
+  <script type="text/javascript">
+    $('#print').focus();
+  </script>

@@ -1,0 +1,11 @@
+== Welcome to Psychologists-admin
+
+Psychologists-admin is an application made for psychologists out there that would like to
+have a platform to have their patients and to issue bills (adapted to Swiss payment system).
+
+== Getting Started
+
+1. vagrant up
+2. bundle
+3. rake db:migrate
+3. rails s

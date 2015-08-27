@@ -1,0 +1,33 @@
+<%= form_for @serie, :html => { :class => 'form-horizontal' } do |f| %>
+
+  <div class="gray-box">
+    <div class="control-group">
+      <%= f.label :name, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :name, :class => 'text_field' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :start_date, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :start_date, id: "datepicker", value: @selected_date %>
+      </div>
+    </div>
+  </div>
+
+  <%= f.hidden_field :contact_id, value: @contact_id %>
+
+  <div class="form-actions">
+    <%= f.submit t('.submit'), :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                contact_path(@contact_id), :class => 'btn' %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $('#serie_name').focus();
+
+  $(document).ready(function(){
+      $('#datepicker').datepicker({format: "dd.mm.yyyy", language: "fr", autoclose: "true"});
+  })
+</script>
