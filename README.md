@@ -1,9 +1,9 @@
-== Welcome to Psychologists-admin
+# Welcome to Psychologists-admin
 
 Psychologists-admin is an application made for psychologists out there that would like to
 have a platform to have their patients and to issue bills (adapted to Swiss payment system).
 
-== Getting Started
+## Getting Started
 
 ```shell
 git clone git@github.com:born4new/psychologists-admin.git
@@ -19,4 +19,4 @@ rake db:setup
 rails server
 ```
 
-You should see the login page, level 1 completed!
+You should see the login page, **level 1** completed!
