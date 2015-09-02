@@ -18,5 +18,5 @@ bundle install
 rake db:setup
 rails server
 ```
-
+``` hehe getting there :) ```
 You should see the login page, **level 1** completed!
