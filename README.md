@@ -18,5 +18,5 @@ bundle install
 rake db:setup
 rails server
 ```
-``` hehe getting there :) ```
+``` I have typed the first line of command on terminal "bash" - but it is giving an fatal error: permission denied - could not read from remote repository -- maybe is because i suppose to have a repository first? how to do it? thanks bro :)```
 You should see the login page, **level 1** completed!
