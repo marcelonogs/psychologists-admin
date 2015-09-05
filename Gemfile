@@ -19,7 +19,11 @@ gem 'whenever', :require => false # Cron jobs
 gem 'bootstrap-datepicker-rails'  # Datepicker
 gem 'kaminari'                    # Pagination
 gem 'pry'                         # REPL replacement for irb
-gem 'test-unit'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails'
+end
 
 group :development do
 	gem 'mina', require: false
